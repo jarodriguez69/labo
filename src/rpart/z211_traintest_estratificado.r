@@ -21,7 +21,7 @@ particionar  <- function( data,  division, agrupa="",  campo="fold", start=1, se
 #------------------------------------------------------------------------------
 
 #Aqui se debe poner la carpeta de la computadora local
-setwd("X:\\gdrive\\austral2023v\\")   #Establezco el Working Directory
+setwd("D:\\Mis Cosas\\Desarrollo\\Austral\\mcd\\Laboratorio1\\")   #Establezco el Working Directory
 
 #cargo los datos
 dataset  <- fread("./datasets/dataset_pequeno.csv")
@@ -30,8 +30,8 @@ dataset  <- fread("./datasets/dataset_pequeno.csv")
 dataset  <- dataset[ clase_ternaria!= "" ]
 
 #particiono estratificadamente el dataset
-#Cambiar por la primer semilla de cada uno !
-particionar( dataset, division=c(7,3), agrupa="clase_ternaria", seed= 102191 )  #Cambiar por la primer semilla de cada uno !
+#Cambiar por la primer semilla de cada uno ! 350003, 350029, 350033, 350039, 350087
+particionar( dataset, division=c(7,3), agrupa="clase_ternaria", seed= 350087 )  #Cambiar por la primer semilla de cada uno !
 
 
 param_basicos  <- list( "cp"=         -1,  #complejidad minima

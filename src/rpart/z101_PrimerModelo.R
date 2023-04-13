@@ -7,7 +7,7 @@ require("rpart")
 require("rpart.plot")
 
 #Aqui se debe poner la carpeta de la materia de SU computadora local
-setwd("X:\\gdrive\\austral2023v\\")  #Establezco el Working Directory
+setwd("D:\\Mis Cosas\\Desarrollo\\Austral\\mcd\\Laboratorio1\\")  #Establezco el Working Directory
 
 #cargo el dataset
 dataset  <- fread("./datasets/dataset_pequeno.csv")
@@ -19,10 +19,10 @@ dapply  <- dataset[ foto_mes==202109 ]  #defino donde voy a aplicar el modelo
 modelo  <- rpart(formula=   "clase_ternaria ~ .",  #quiero predecir clase_ternaria a partir de el resto de las variables
                  data=      dtrain,  #los datos donde voy a entrenar
                  xval=      0,
-                 cp=       -0.3,   #esto significa no limitar la complejidad de los splits
-                 minsplit=  0,     #minima cantidad de registros para que se haga el split
-                 minbucket= 1,     #tamaño minimo de una hoja
-                 maxdepth=  3 )    #profundidad maxima del arbol
+                 cp=       -1,   #esto significa no limitar la complejidad de los splits
+                 minsplit=  300,     #minima cantidad de registros para que se haga el split
+                 minbucket= 150,     #tamaño minimo de una hoja
+                 maxdepth=  6 )    #profundidad maxima del arbol
 
 
 #grafico el arbol
@@ -49,5 +49,5 @@ dir.create( "./exp/" )
 dir.create( "./exp/KA2001" )
 
 fwrite( dapply[ , list(numero_de_cliente, Predicted) ], #solo los campos para Kaggle
-        file= "./exp/KA2001/K101_001.csv",
+        file= "./exp/KA2001/K101_001-8.csv",
         sep=  "," )
