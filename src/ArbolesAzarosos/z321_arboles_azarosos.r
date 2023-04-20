@@ -11,14 +11,14 @@ require("rpart")
 
 #parmatros experimento
 PARAM <- list()
-PARAM$experimento  <- 3210
-PARAM$semilla  <- 102191      #Establezco la semilla aleatoria, cambiar por SU primer semilla
-
+PARAM$experimento  <- 3334
+PARAM$semilla  <- 350003      #Establezco la semilla aleatoria, cambiar por SU primer semilla
+#cp minsplit minbucket maxdept arbolitos semillas
 #parameetros rpart
 PARAM$rpart_param   <- list( "cp"=          -1,
-                              "minsplit"=  300,
-                              "minbucket"=  20,
-                              "maxdepth"=   10 )
+                             "minsplit"=  500,
+                             "minbucket"=  10,
+                             "maxdepth"=   8 )
 
 #parametros  arbol
 PARAM$feature_fraction  <- 0.5  #entreno cada arbol con solo 50% de las variables variables
@@ -29,7 +29,7 @@ PARAM$num_trees_max  <- 500 #voy a generar 500 arboles, a mas arboles mas tiempo
 #------------------------------------------------------------------------------
 #Aqui comienza el programa
 
-setwd("X:\\gdrive\\austral2023v\\")  #Establezco el Working Directory
+setwd("D:\\Mis Cosas\\Desarrollo\\Austral\\mcd\\Laboratorio1\\")  #Establezco el Working Directory
 
 #cargo los datos
 dataset  <- fread("./datasets/dataset_pequeno.csv")
@@ -72,35 +72,35 @@ for( arbolito in  1:PARAM$num_trees_max )
   #paso de un vector a un string con los elementos separados por un signo de "+"
   #este hace falta para la formula
   campos_random  <- paste( campos_random, collapse=" + ")
-
+  
   #armo la formula para rpart
   formulita  <- paste0( "clase_ternaria ~ ", campos_random )
-
+  
   #genero el arbol de decision
   modelo  <- rpart( formulita,
                     data= dtrain,
                     xval= 0,
                     control= PARAM$rpart_param )
-
+  
   #aplico el modelo a los datos que no tienen clase
   prediccion  <- predict( modelo, dapply , type = "prob")
   
   dapply[  ,  prob_acumulada :=  prob_acumulada + prediccion[ , "BAJA+2"] ]
-
+  
   if( arbolito %in%  grabar )
   {
     #Genero la entrega para Kaggle
-	umbral_corte  <-  (1/40) *  arbolito
+    umbral_corte  <-  (1/40) *  arbolito
     entrega  <- as.data.table( list( "numero_de_cliente"= dapply[  , numero_de_cliente],
                                      "Predicted"= as.numeric(dapply[  , prob_acumulada] > umbral_corte) ) ) #genero la salida
-
+    
     nom_arch  <- paste0('KA', PARAM$experimento, "_",
-						sprintf( '%.3d', arbolito ), #para que tenga ceros adelante
-						'.csv' )
+                        sprintf( '%.3d', arbolito ), #para que tenga ceros adelante
+                        '.csv' )
     fwrite( entrega, 
             file= nom_arch,
             sep= "," )
-
+    
     cat( arbolito, " " )
   }
   
