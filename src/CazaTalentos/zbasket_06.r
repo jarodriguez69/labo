@@ -1,6 +1,6 @@
 
 
-set.seed( 102191 )
+set.seed( 350003 )
 
 #calcula cuantos encestes logra un jugador con indice de enceste prob
 #que hace qyt tiros libres
@@ -12,7 +12,7 @@ ftirar  <- function( prob, qty ){
 
 #defino los jugadores
 jordan    <- 0.85
-peloton   <- rep( 0.6, 99 )  #jugadores identicos
+peloton   <- rep( 0.8, 99 )  #jugadores identicos
 jugadores <- c( jordan, peloton )
 
 
