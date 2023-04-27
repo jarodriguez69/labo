@@ -1,4 +1,4 @@
-
+t <- proc.time() # Inicia el cronómetro
 
 set.seed( 350003 )
 
@@ -35,4 +35,8 @@ for( i in 1:10000 ){  #diez mil experimentos
 }
 
 
+proc.time()-t 
 print(  primero_ganador )
+
+
+

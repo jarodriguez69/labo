@@ -28,11 +28,11 @@ require("mlrMBO")
 
 #parmatros experimento
 PARAM  <- list()
-PARAM$experimento  <- 'HT3710'
+PARAM$experimento  <- 'HT3710a'
 
 PARAM$dataset  <- "./datasets/dataset_pequeno.csv"
 PARAM$training_meses  <- c(202107)  #los meses en los que entreno, TODOS deben tener la clase completa
-PARAM$semillas  <- c(102191)    #Mas de una semilla cambia el  1-Repeated
+PARAM$semillas  <- c(350003)    #Mas de una semilla cambia el  1-Repeated
 PARAM$crossvalidation  <- 5     #cantidad de folds del cross validation
 PARAM$BO$iteraciones  <- 150    #cantidad de iteraciones de la optimizacin bayesiana
 
@@ -128,7 +128,7 @@ ArbolesCrossValidation  <- function( semilla, data, param, qfolds, pagrupa )
                           seq(qfolds), # 1 2 3 4 5
                           MoreArgs= list( data, param), 
                           SIMPLIFY= FALSE,
-                          mc.cores= 5 )   #debe ir 1 si es Windows
+                          mc.cores= 1 )   #debe ir 1 si es Windows
 
   data[ , fold := NULL ]
 
@@ -153,7 +153,7 @@ EstimarGanancia  <- function( x )
                            PARAM$semillas,  
                            MoreArgs= list ( dtrain, param=x, qfolds= xval_folds, pagrupa= "clase_ternaria" ),
                            SIMPLIFY= FALSE,
-                           mc.cores = PARAM$crossvalidation )  #debe ir 1 si es Windows
+                           mc.cores = 1 )  #debe ir 1 si es Windows
 
    ganancia_promedio  <- mean( unlist( vganancias ) )
 
@@ -169,7 +169,7 @@ EstimarGanancia  <- function( x )
 #------------------------------------------------------------------------------
 #Aqui empieza el programa
 
-setwd( "~/buckets/b1/" )
+setwd("D:\\Mis Cosas\\Desarrollo\\Austral\\mcd\\Laboratorio1\\")
 
 #cargo el dataset, aqui debe poner  SU RUTA
 dataset  <- fread( PARAM$dataset )   #donde entreno

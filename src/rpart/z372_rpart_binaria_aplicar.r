@@ -24,9 +24,9 @@ PARAM$input$dataset       <- "./datasets/dataset_pequeno.csv"
 PARAM$input$training      <- c( 202107 )  # los meses en los que vamos a entrenar
 PARAM$input$future        <- c( 202109 )  #meses donde se aplica el modelo
 
-PARAM$rpart$cp         <-  -0.2618881869
-PARAM$rpart$minsplit   <- 215.661244913
-PARAM$rpart$minbucket  <-   9.8589051183
+PARAM$rpart$cp         <-  -0.973523401171658
+PARAM$rpart$minsplit   <- 717.7102170677
+PARAM$rpart$minbucket  <-   55.9252615042034
 PARAM$rpart$mixdepth   <-   8
 
 
@@ -34,7 +34,7 @@ PARAM$rpart$mixdepth   <-   8
 
 
 #Aqui se debe poner la carpeta de la materia de SU computadora local
-setwd("~/buckets/b1/")  #Establezco el Working Directory
+setwd("D:\\Mis Cosas\\Desarrollo\\Austral\\mcd\\Laboratorio1\\")  #Establezco el Working Directory
 
 #cargo el dataset
 dataset  <- fread(PARAM$input$dataset)
